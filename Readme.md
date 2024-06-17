@@ -22,6 +22,7 @@ https://github.com/facebookresearch/detr
 
 
 <h2>Getting Started</h2>
+
 1. git clone https://github.com/davidpl2/DeePosit  
 
 2. Extract the zip file containing the video frames for the example video. The zip is located in: VideoDatabase\IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32.zip and should be extracted into the folder: \IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32
