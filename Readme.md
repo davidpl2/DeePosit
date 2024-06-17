@@ -7,12 +7,12 @@ This code allows automatic detection of urine and fecal depositions in thermal v
 It is based on a preliminary hot blob detector and a classifier which is used to classify each preliminary detection as either urine\feces or background (i.e. not urine or feces). The classifier code is based on the code published by:
 https://github.com/facebookresearch/detr 
 <h2>Project structure</h2>
-1. DeePosit subfolder includes the code for the preliminary detection algorithm as well as the classifier. The project includes both Matlab and Python code. The code was developed in windows but can probably run in linux as well. 
-2. The trained weights of the classifier are in DeePosit\Classifier\TrainedWeights .
-3. ExampleOfResults includes a video demonstrating the automatic detection of urine (marked in green) and feces (marked in red). Preliminary detections that were classified as background are marked in blue. 
-4. FigStat includes additional statistical data for the figures in the paper.   
-5. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK)  
-6. VideoDatabase includes a recorded video which can be used to try the code. VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period). 
+1. DeePosit subfolder includes the code for the preliminary detection algorithm as well as the classifier. The project includes both Matlab and Python code. The code was developed in windows but can probably run in linux as well. &
+2. The trained weights of the classifier are in DeePosit\Classifier\TrainedWeights .&
+3. ExampleOfResults includes a video demonstrating the automatic detection of urine (marked in green) and feces (marked in red). Preliminary detections that were classified as background are marked in blue. &
+4. FigStat includes additional statistical data for the figures in the paper.   &
+5. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK).  &
+6. VideoDatabase includes a recorded video which can be used to try the code. VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period). &
 
 <h2>Getting Started</h2>
 1. git clone https://github.com/davidpl2/DeePosit
