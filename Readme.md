@@ -31,7 +31,7 @@ https://github.com/facebookresearch/detr
    
 4. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed.
    
-5. To run the automatic detector, create a virtual environment with python 3.9: python3.9 -m venv <YourVirtualEnvironmentName>
+5. To run the automatic detector, create a virtual environment with python 3.9: python3.9 -m venv YourVirtualEnvironmentName
    
 6. From within the virtual environment, install requirements for the classifier using: pip install -r DeePosit\Classifier\requirements.txt
    
