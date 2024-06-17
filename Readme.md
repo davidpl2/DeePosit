@@ -8,16 +8,11 @@ It is based on a preliminary hot blob detector and a classifier which is used to
 https://github.com/facebookresearch/detr 
 <h2>Project structure</h2>
 1. DeePosit subfolder includes the code for the preliminary detection algorithm as well as the classifier. The project includes both Matlab and Python code. The code was developed in windows but can probably run in linux as well. 
-
-2. The trained weights of the classifier are in DeePosit\Classifier\TrainedWeights
-   
-2. ExampleOfResults includes a video demonstrating the automatic detection of urine (marked in green) and feces (marked in red). Preliminary detections that were classified as background are marked in blue.
-   
-4. FigStat includes additional statistical data for the figures in the paper.
-   
-6. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK)
-   
-8. VideoDatabase includes a recorded video which can be used to try the code. VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period). 
+2. The trained weights of the classifier are in DeePosit\Classifier\TrainedWeights .
+3. ExampleOfResults includes a video demonstrating the automatic detection of urine (marked in green) and feces (marked in red). Preliminary detections that were classified as background are marked in blue. 
+4. FigStat includes additional statistical data for the figures in the paper.   
+5. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK)  
+6. VideoDatabase includes a recorded video which can be used to try the code. VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period). 
 
 <h2>Getting Started</h2>
 1. git clone https://github.com/davidpl2/DeePosit
@@ -25,7 +20,6 @@ https://github.com/facebookresearch/detr
 . Note that the bin files (the video frames) should be in the folder \IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32.
 3. To see the IR video, run the matlab script DeePositLabeler.m , Press on "Load Video" and choose one of the bin files in the directory above.
 4. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed. 
-
 5. To run the automatic detector, create a virtual environment with python 3.9: python3.9 -m venv <YourVirtualEnvironmentName>
 6. From within the virtual environment, install requirements for the classifier using: pip install -r DeePosit\Classifier\requirements.txt
 7. Edit the file DeePosit\getParams.m and change the following line to point to the relevant python executable:
