@@ -30,7 +30,7 @@ https://github.com/facebookresearch/detr
 
 3. To see the IR video, run the matlab script DeePositLabeler.m , Press on "Load Video" and choose one of the bin files in the directory above.
    
-4. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed.
+4. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed.
    
 5. To run the automatic detector, create a virtual environment with python 3.9: python3.9 -m venv <YourVirtualEnvironmentName>
    
@@ -44,7 +44,7 @@ params.pythonExe = '"YourVirtualEnvironmentName\Scripts\python.exe"';
 
 <h2>Training the classifier</h2>
 
-1. To train the classifier, you will first need to generate a training and testing database. Do that by adding videos and annotating them using DeePositLabeler.m (including annotation of the urine and feces). List the videos in the vidsID.csv and specify each video as either train or test video by putting 1 or 0 in the relevant column. Then run the RunDeePositOnDB.m with the flag GenerateTrainTestDB=true to generate the train and test database.
+1. To train the classifier, you will first need to generate a training and testing database. Do that by adding videos and annotate them using DeePositLabeler.m (including annotation of the urine and feces location). List the videos in the vidsID.csv and specify each video as either train or test video by putting 1 or 0 in the relevant column. Then run the RunDeePositOnDB.m with the flag GenerateTrainTestDB=true to generate the train and test database.
    
 2. After generating the train and test database, change to folder DeePosit\Classifier and run the training of the classifier by from within the virtual environment by running: python main.py --lr_drop 200 --lr_backbone 1e-5 --output_dir "SpecifyYourOutputDir" --epochs 500 --enc_layers 6 --dec_layers 6 --num_queries 1 --batch_size 24 --resume "PathToPretrainWeights" --dilation --train_img_folder "TrainImgsFolder" --val_img_folder "TestImagesFolder" --bbox_loss_coef 0 --giou_loss_coef 0
    
