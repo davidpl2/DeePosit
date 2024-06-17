@@ -18,17 +18,16 @@ https://github.com/facebookresearch/detr
    
 8. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK).
    
-10. VideoDatabase includes a recorded video which can be used to try the code. VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period).
+10. VideoDatabase includes a recorded video which can be used to try the code. It should be downloaded from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extrated in the project folder.  VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period).
 
 
 <h2>Getting Started</h2>
 
 1. git clone https://github.com/davidpl2/DeePosit  
 
-2. Extract the zip file containing the video frames for the example video. The zip is located in: VideoDatabase\IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32.zip and should be extracted into the folder: \IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32
-. Note that the bin files (the video frames) should be in the folder \IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32.
+2. Download VideoDatabase from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extract it in the project folder. 
 
-3. To see the IR video, run the matlab script DeePositLabeler.m , Press on "Load Video" and choose one of the bin files in the directory above.
+3. To see the IR video, run the matlab script DeePositLabeler.m , Press on "Load Video" and choose one of the bin files in the directory VideoDatabase\IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32\.
    
 4. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed.
    
@@ -38,6 +37,8 @@ https://github.com/facebookresearch/detr
    
 7. Edit the file DeePosit\getParams.m and change the following line to point to the relevant python executable:
 params.pythonExe = '"YourVirtualEnvironmentName\Scripts\python.exe"';
+
+8. Download the pre-trained weights file from this [link](https://drive.google.com/file/d/16qVqZz5Yz_im1quljCdQ8cLIBGlrLxOY/view?usp=drive_link) and put it in the folder DeePosit\Classifier\TrainedWeights.
 
 8. Running the matlab script RunDeePositOnDB.m will run the preliminary detection and the classifier on all of the videos in the database (a single video is supplied in this github repository). The results will be saved in DeePositDetectionResults\<relative path of the input video>\DeePositRes.csv. Note that the videos in the database should be listed in the csv file: VideoDatabase\vidsID.csv . Note that you will need at least 32GB of RAM and a GPU with at least 4GB of memory. 
 
