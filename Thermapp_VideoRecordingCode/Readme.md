@@ -55,7 +55,7 @@ mkdir ~/Desktop/irData/
 
 <h2>Open the recorded images</h2>
 
-1. The recording directory will include .bin files named: frame_<frameID>_<Year>_<Month>_<Sec>.<microSec>.bin . Each of these frames includes a 16-bit grayscale image of 288 rows and 384 columns in RAW format. The following Matlab code can be used to read a single image file:
+1. The recording directory will include .bin files named: frame_frameID_Year_Month_Sec.microSec.bin . Each of these frames includes a 16-bit grayscale image of 288 rows and 384 columns in RAW format. The following Matlab code can be used to read a single image file:
 ```
 fd = fopen(file_name,'rb');
 data = fread(fd,'uint16');
