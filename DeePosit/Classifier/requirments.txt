@@ -35,9 +35,10 @@ scipy==1.11.2
 six==1.16.0
 tensorboard==2.14.0
 tensorboard-data-server==0.7.1
-torch==1.13.1
-torchaudio==0.13.1
-torchvision==0.14.1
+--extra-index-url https://download.pytorch.org/whl/cu117
+torch==1.13.1+cu117
+torchaudio==0.13.1+cu117
+torchvision==0.14.1+cu117
 typing_extensions==4.8.0
 tzdata==2023.3
 urllib3==1.26.16
