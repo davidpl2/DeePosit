@@ -21,11 +21,13 @@ https://github.com/facebookresearch/detr
 
 <h2>Getting Started</h2>
 
-1. Create a folder for the project, run console (in windows, press on start and write cmd + enter). In the console write:
+1. Create a folder for the project, run console (in windows, press on start and write cmd + enter). In the console write:  
+
 '''
    cd YourProjectFolder
    git clone https://github.com/davidpl2/DeePosit
 '''
+
 The repository will be downloaded into the folder: YourProjectFolder\DeePosit
 
 2. Download VideoDatabase from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extract it into the folder: YourProjectFolder\DeePosit\. Check that the file vidsID.csv is located in: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv (and not in YourProjectFolder\DeePosit\VideoDatabase\VideoDatabase\vidsID.csv)
