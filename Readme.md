@@ -21,7 +21,9 @@ https://github.com/facebookresearch/detr
 
 <h2>Getting Started</h2>
 
-1. Create a folder for the project, run console (in windows, press on start and write cmd + enter). In the console write:  
+1. Prerquists: Matlab R2020b or higher. Python 3.9 , Cuda Version 11.3 or higher.  
+
+2. Create a folder for the project, open console (in windows, press on start, write cmd and press enter). In the console write:  
 
 ```
    cd YourProjectFolder
@@ -30,33 +32,35 @@ https://github.com/facebookresearch/detr
 
 The repository will be downloaded into the folder: YourProjectFolder\DeePosit
 
-2. Download VideoDatabase from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extract it into the folder: YourProjectFolder\DeePosit\. Check that the file vidsID.csv is located in: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv (and not in YourProjectFolder\DeePosit\VideoDatabase\VideoDatabase\vidsID.csv)
+3. Download VideoDatabase from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extract it into the folder: YourProjectFolder\DeePosit\. Check that the file vidsID.csv is located in: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv (and not in YourProjectFolder\DeePosit\VideoDatabase\VideoDatabase\vidsID.csv)
 
-3. To see the IR video, open Matlab and change the current folder to YourProjectFolder\DeePosit\DeePosit. Run the Matlab script DeePositLabeler. Press on "Load Video" and choose one of the bin files in the directory YourProjectFolder\VideoDatabase\IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32\.
+4. To see the IR video, open Matlab and change the current folder to YourProjectFolder\DeePosit\DeePosit. Run the Matlab script DeePositLabeler. A graphical user interface will be shown. Press on "Load Video" button and choose one of the bin files in the directory YourProjectFolder\VideoDatabase\IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32\.
    
-4. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed.
+5. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed.
    
-5. To run the automatic detector, create a virtual environment with python 3.9 by running in console:
+6. To run the automatic detector, create a virtual environment with python 3.9 by running in console:
 ```
 cd YourProjectFolder
 PathToPython3.9\python -m venv YourVirtualEnvironmentName
 ```
 
-6. Activate the virutal environment by running in console (syntax for Windows):
+7. Activate the virutal environment by running in console (syntax for Windows):
 ```
 YourProjectFolder\YourVirtualEnvironmentName\Scripts\activate 
 ```  
-7. In the same console (from within the virtual environment), install requirements for the classifier using:
+8. In the same console (from within the virtual environment), install requirements for the classifier using:
 ```
-pip install -r YourProjectFolder\DeePosit\DeePosit\Classifier\requirements.txt
+pip install -r YourProjectFolder\DeePosit\DeePosit\Classifier\requirments.txt
 ```
    
-8. Edit the file YourProjectFolder\DeePosit\DeePosit\getParams.m and change the following line to point to the relevant python executable of the virtual environment:
+9. Edit the file YourProjectFolder\DeePosit\DeePosit\getParams.m and change the following line to point to the relevant python executable of the virtual environment:
+```
 params.pythonExe = '"YourProjectFolder\YourVirtualEnvironmentName\Scripts\python.exe"';
+```
+  
+10. Download the pre-trained weights file from this [link](https://drive.google.com/file/d/16qVqZz5Yz_im1quljCdQ8cLIBGlrLxOY/view?usp=drive_link) and put it in the folder YourProjectFolder\DeePosit\DeePosit\Classifier\TrainedWeights.
 
-9. Download the pre-trained weights file from this [link](https://drive.google.com/file/d/16qVqZz5Yz_im1quljCdQ8cLIBGlrLxOY/view?usp=drive_link) and put it in the folder YourProjectFolder\DeePosit\DeePosit\Classifier\TrainedWeights.
-
-10. In Matlab, change current directory to YourProjectFolder\DeePosit\DeePosit and run the Matlab script RunDeePositOnDB to run the preliminary detection and the classifier on all of the videos in the database (a single video is supplied in this github repository). The results will be saved in YourProjectFolder\DeePosit\DeePositDetectionResults\relative_path_of_the_input_video\DeePositRes.csv. Note that the videos in the database should be listed in the csv file: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv . Note that you will need at least 32GB of RAM and a GPU with at least 4GB of memory. 
+11. In Matlab, change current directory to YourProjectFolder\DeePosit\DeePosit and run the Matlab script RunDeePositOnDB to run the preliminary detection and the classifier on all of the videos in the database (a single video is supplied in this github repository). The results will be saved in YourProjectFolder\DeePosit\DeePositDetectionResults\relative_path_of_the_input_video\DeePositRes.csv. Note that the videos in the database should be listed in the csv file: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv . Note that you will need at least 32GB of RAM and a GPU with at least 4GB of memory. 
 
 
 <h2>Training the classifier</h2>
