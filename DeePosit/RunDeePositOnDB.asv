@@ -15,10 +15,10 @@
 % 2.the link to python.exe inside the relevant virtual environment should
 % be set correctly in getParams()
 % 3. the output folder can be changed in getParams(). otherwise it will be: ..\DeePositDetectionResults\ 
-%   
-%Code Author: David Peles, Shlomo Wagner's Lab, University of Haifa.
-%This code is an implementation of the paper:
+% 4. The script will run only on videos in which the basic tagging was done ( the area of the arena's floor was marked as well as the range of frames of habituation and trial were specified).  
 %
+%Code Author: David Peles, Shlomo Wagner's Lab, University of Haifa.
+%This code is an implementation of the paper: Peles et al, DeePosit: an AI-based tool for detecting mouse urine and fecal depositions from thermal video clips of behavioral experiments
 %
 clear all;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,6 +32,9 @@ runNN = true; % if true, runs the classifier. (GenerateDbForClassification shoul
 
 %generating train\test db:
 GenerateTrainTestDB = false; % if true, generates training and testing database for the classifier
+
+%clean-up
+doCleanUp = true; %erase temporary files before starting and after finishing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 params = getParams();
@@ -43,10 +46,16 @@ RGBResPathTrain = [outputDir,'\HeuristicResPath_',HeuristicVer,'\'];
 RGBResPathTest  = [outputDir,'\HeuristicResPath_',HeuristicVer,'\'];
 trainDbOutdir = [outputDir,'\DB_Train_',HeuristicVer,'\'];
 testDbOutDir  = [outputDir,'\DB_Test_',HeuristicVer,'\'];
-%trainDbOutdir = ['C:\ICR Dup\DB_Train_',HeuristicVer,'\'];
-%testDbOutDir  = ['C:\ICR Dup\DB_Test_',HeuristicVer,'\'];
-%classifierVer='Ver03Oct23_Db1.13_Epoch99';
-
+if doCleanUp
+    try
+        if exist(RGBResPathTrain)
+            rmdir(RGBResPathTrain,'s');
+        end
+        if exist(RGBResPathTest)
+            rmdir(RGBResPathTest,'s');
+        end
+    end
+end
 if GenerateDbForClassification
     mkdir(RGBResPathTrain)
     mkdir(RGBResPathTest)
@@ -58,18 +67,9 @@ if GenerateTrainTestDB
 end
 
 
-[dirList,vidsTable,vidType, baseDir, isMale, isWT, isSubjectStressed] = GetVidsList(params.vidDir);
+[dirList,vidsTable,vidType, baseDir, isMale, isWT] = GetVidsList(params.vidDir);
 
-
-isTrainSNP = ismember(vidsTable.vidType,'SNP') & vidsTable.isTrain;
-isTestSNP = ismember(vidsTable.vidType,'SNP') & vidsTable.isTest;
-isNeededSNP = isTrainSNP | isTestSNP;
-
-usedVis = find((vidsTable.bbAndCageTaggingDone & ...
-               (ismember(vidsTable.vidType,'SP')|ismember(vidsTable.vidType,'SxP')|ismember(vidsTable.vidType,'Stress')))...
-               |(vidsTable.isTest | vidsTable.isTrain) );
-
-usedVis = intersect(usedVis,find(~vidsTable.arenaValid));%just non valid videos
+usedVis = find(vidsTable.bbAndCageTaggingDone);
 
 
 disp(params.classifierVer)
@@ -107,7 +107,6 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
     vidOutputDir = fullfile(outputDir,dirList{vidIndex});
 
     
-
     %skip this video if it was already processed:
     if ~GenerateTrainTestDB %if we generate train and test DB than we wont skip videos.
         dirListHab = dir(fullfile(vidOutputDir,['*Habituation',HeuristicVer]));
@@ -261,7 +260,7 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
             if nDetections>0
                 if ~exist(classifierResFname,'file') || ~allowSkip
                     fprintf(logFile,'Running Classifier\n');
-                    RunDetrClassifier(rgbDIR,curOutPath)
+                    RunDeePositClassifier(rgbDIR,curOutPath);                    
                 else
                     fprintf(logFile,'Classifier Res already exist\n');
                 end
@@ -317,6 +316,13 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
             GenerateDatabaseSingleVid(vidIndex, outDir, detCordX(isFalseDet), detCordY(isFalseDet), detFrame(isFalseDet), detType(isFalseDet), timeAugmentation, ~isTrain, vidLoadedToMem,step,pastSteps,futureSteps);
         end
     end
+
+    [predictedLabel,hotFrameI,xCord,yCord,ver, areaPixels, maxPixelIdxListAll,...
+     mouseFrameNum, mouseCenterXY, mouseMasksAll,unifiedPixelIdxListAll] = ReadAutoDetections(vidOutputDir,false,false,params.classifierVer,params.HeuristicVer);
+
+    T = table(hotFrameI,predictedLabel,xCord,yCord,areaPixels);
+    writetable(T,fullfile(vidOutputDir,'DeePositRes.csv'));
+
     %catch me
     %    fprintf(logFile,['Exception, processing of video was not finished. video id: ',num2str(vidIndex),'\n'])
     %end
@@ -324,4 +330,13 @@ end
 
 fprintf(logFile,'Finished');
 fclose(logFile)
+
+if doCleanUp
+    disp('Erasing temporary files')
+    try
+        rmdir(RGBResPathTrain);
+        rmdir(RGBResPathTest);
+    end
+end
+
 disp('Finished')

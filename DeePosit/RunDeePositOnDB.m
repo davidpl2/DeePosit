@@ -32,6 +32,9 @@ runNN = true; % if true, runs the classifier. (GenerateDbForClassification shoul
 
 %generating train\test db:
 GenerateTrainTestDB = false; % if true, generates training and testing database for the classifier
+
+%clean-up
+doCleanUp = true; %erase temporary files before starting and after finishing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 params = getParams();
@@ -43,7 +46,16 @@ RGBResPathTrain = [outputDir,'\HeuristicResPath_',HeuristicVer,'\'];
 RGBResPathTest  = [outputDir,'\HeuristicResPath_',HeuristicVer,'\'];
 trainDbOutdir = [outputDir,'\DB_Train_',HeuristicVer,'\'];
 testDbOutDir  = [outputDir,'\DB_Test_',HeuristicVer,'\'];
-
+if doCleanUp
+    try
+        if exist(RGBResPathTrain,'dir')
+            rmdir(RGBResPathTrain,'s');
+        end
+        if exist(RGBResPathTest,'dir')
+            rmdir(RGBResPathTest,'s');
+        end
+    end
+end
 if GenerateDbForClassification
     mkdir(RGBResPathTrain)
     mkdir(RGBResPathTest)
@@ -318,4 +330,16 @@ end
 
 fprintf(logFile,'Finished');
 fclose(logFile)
+
+if doCleanUp
+    try
+        if exist(RGBResPathTrain,'dir')
+            rmdir(RGBResPathTrain,'s');
+        end
+        if exist(RGBResPathTest,'dir')
+            rmdir(RGBResPathTest,'s');
+        end
+    end
+end
+
 disp('Finished')
