@@ -33,17 +33,28 @@ mkdir ~/Desktop/irData/
 ```
 
 <h2>Recording video:</h2>
-1. run RunThermappDeamon.sh from console (sudo password will be required).
+
+1. run RunThermappDeamon.sh from console (sudo password will be required).  
+
 2. run GrabbingGUI.sh from console (sudo password will be required).
+   
 3. You should see the video in the GUI.
+   
 4. Optional: wait 15 minutes to get the camera temperature stable (may improve the accuracy of the measured temperature).
-4. Occlude the camera field of view with a uniform surface (a piece of cardboard) and press NUC. Wait until you see a uniform image.
-5. You can press Record to start recording the video. A second press on this button to stop recording. The video will be saved in a subdirectory named with the date and time under: ~/Desktop/irData/. Each image is saved in a single bin file. During recording, take a look at the frame rate (FPS). Don't maximize the GUI window, as it might result in a reduction of the frame rate (the FPS is shown above the image. It should be between 8.6-8.7 frames per second).
-6. Optional: if there is a black body in the field of view, you can left-click on it to see its temperature. The graph at the bottom part will show its temperature over time. (does not affect recorded video)
-7. Optional: press the keyboard m button to change the contrast of the displayed image. (does not affect recorded video).
-8. Press the Quit button when finished and close the console windows.
+   
+5. Occlude the camera field of view with a uniform surface (a piece of cardboard) and press NUC. Wait until you see a uniform image.
+   
+6. You can press Record to start recording the video. A second press on this button to stop recording. The video will be saved in a subdirectory named with the date and time under: ~/Desktop/irData/. Each image is saved in a single bin file. During recording, take a look at the frame rate (FPS). Don't maximize the GUI window, as it might result in a reduction of the frame rate (the FPS is shown above the image. It should be between 8.6-8.7 frames per second).
+   
+7. Optional: if there is a black body in the field of view, you can left-click on it to see its temperature. The graph at the bottom part will show its temperature over time. (does not affect recorded video)
+   
+8. Optional: press the keyboard m button to change the contrast of the displayed image. (does not affect recorded video).
+    
+9. Press the Quit button when finished and close the console windows.
+
 
 <h2>Open the recorded images</h2>
+
 1. The recording directory will include .bin files named: frame_<frameID>_<Year>_<Month>_<Sec>.<microSec>.bin . Each of these frames includes a 16-bit grayscale image of 288 rows and 384 columns in RAW format. The following Matlab code can be used to read a single image file:
 ```
 fd = fopen(file_name,'rb');
