@@ -23,10 +23,10 @@ https://github.com/facebookresearch/detr
 
 1. Create a folder for the project, run console (in windows, press on start and write cmd + enter). In the console write:  
 
-'''
+```
    cd YourProjectFolder
    git clone https://github.com/davidpl2/DeePosit
-'''
+```
 
 The repository will be downloaded into the folder: YourProjectFolder\DeePosit
 
@@ -37,19 +37,19 @@ The repository will be downloaded into the folder: YourProjectFolder\DeePosit
 4. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed.
    
 5. To run the automatic detector, create a virtual environment with python 3.9 by running in console:
-'''
+```
 cd YourProjectFolder
 PathToPython3.9\python -m venv YourVirtualEnvironmentName
-'''
+```
 
 6. Activate the virutal environment by running in console (syntax for Windows):
-'''
+```
 YourProjectFolder\YourVirtualEnvironmentName\Scripts\activate 
-'''   
+```  
 7. In the same console (from within the virtual environment), install requirements for the classifier using:
-''' 
+```
 pip install -r YourProjectFolder\DeePosit\DeePosit\Classifier\requirements.txt
-''' 
+```
    
 8. Edit the file YourProjectFolder\DeePosit\DeePosit\getParams.m and change the following line to point to the relevant python executable of the virtual environment:
 params.pythonExe = '"YourProjectFolder\YourVirtualEnvironmentName\Scripts\python.exe"';
