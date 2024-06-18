@@ -10,15 +10,13 @@ https://github.com/facebookresearch/detr
 
 1. DeePosit subfolder includes the code for the preliminary detection algorithm as well as the classifier. The project includes both Matlab and Python code. The code was developed in windows but can probably run in linux as well.  
 
-2. The trained weights of the classifier are in DeePosit\Classifier\TrainedWeights .
+2. ExampleOfResults subfolder includes a video demonstrating the automatic detection of urine (marked in green) and feces (marked in red). Preliminary detections that were classified as background are marked in blue.
    
-4. ExampleOfResults includes a video demonstrating the automatic detection of urine (marked in green) and feces (marked in red). Preliminary detections that were classified as background are marked in blue.
+3. FigStat includes additional statistical data for the figures in the paper.
    
-6. FigStat includes additional statistical data for the figures in the paper.
+4. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK).
    
-8. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK).
-   
-10. VideoDatabase includes a recorded video which can be used to try the code. It should be downloaded from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extrated in the project folder.  VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period).
+5. VideoDatabase includes a recorded video which can be used to try the code. It should be downloaded from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extrated in the project folder.  VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period).
 
 
 <h2>Getting Started</h2>
