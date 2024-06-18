@@ -21,7 +21,7 @@ https://github.com/facebookresearch/detr
 
 <h2>Getting Started</h2>
 
-1. Prerquists: Matlab R2020b or higher. Python 3.9 , Cuda Version 11.3 or higher.  
+1. Prerquists for running the automatic urine and feces detection: A PC with at least 32GB of RAM and a GPU with at least 4GB of memory,  Matlab R2020b or higher, Python 3.9 , Cuda Version 11.3 or higher.  For recording thermal videos with Thermapp MD IR camera you will need a PC with Ubuntu. See Thermapp_VideoRecordingCode\Readme.md for more details.
 
 2. Create a folder for the project, open console (in windows, press on start, write cmd and press enter). In the console write:  
 
@@ -60,7 +60,7 @@ params.pythonExe = '"YourProjectFolder\YourVirtualEnvironmentName\Scripts\python
   
 10. Download the pre-trained weights file from this [link](https://drive.google.com/file/d/16qVqZz5Yz_im1quljCdQ8cLIBGlrLxOY/view?usp=drive_link) and put it in the folder YourProjectFolder\DeePosit\DeePosit\Classifier\TrainedWeights.
 
-11. In Matlab, change current directory to YourProjectFolder\DeePosit\DeePosit and run the Matlab script RunDeePositOnDB to run the preliminary detection and the classifier on all of the videos in the database (a single video is supplied in this github repository). The results will be saved in YourProjectFolder\DeePosit\DeePositDetectionResults\relative_path_of_the_input_video\DeePositRes.csv. Note that the videos in the database should be listed in the csv file: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv . Note that you will need at least 32GB of RAM and a GPU with at least 4GB of memory. 
+11. In Matlab, change current directory to YourProjectFolder\DeePosit\DeePosit and run the Matlab script RunDeePositOnDB to run the preliminary detection and the classifier on all of the videos in the database (a single video is supplied in this github repository). The results will be saved in YourProjectFolder\DeePosit\DeePositDetectionResults\relative_path_of_the_input_video\DeePositRes.csv. Note that the videos in the database should be listed in the csv file: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv . 
 
 
 <h2>Training the classifier</h2>
