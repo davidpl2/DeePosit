@@ -67,5 +67,8 @@ params.pythonExe = '"YourProjectFolder\YourVirtualEnvironmentName\Scripts\python
 
 1. To train the classifier, you will first need to generate a training and testing database. Do that by adding videos and annotate them using DeePositLabeler.m (including annotation of the urine and feces location). List the videos in the vidsID.csv and specify each video as either train or test video by putting 1 or 0 in the relevant column. Then run the RunDeePositOnDB.m with the flag GenerateTrainTestDB=true to generate the train and test database.
    
-2. After generating the train and test database, change to folder DeePosit\Classifier and run the training of the classifier from within the virtual environment by running: python main.py --lr_drop 200 --lr_backbone 1e-5 --output_dir "SpecifyYourOutputDir" --epochs 500 --enc_layers 6 --dec_layers 6 --num_queries 1 --batch_size 24 --resume "PathToPretrainWeights" --dilation --train_img_folder "TrainImgsFolder" --val_img_folder "TestImagesFolder" --bbox_loss_coef 0 --giou_loss_coef 0
-   
+2. After generating the train and test database, change to folder DeePosit\Classifier and run the training of the classifier from within the virtual environment by running: 
+
+```
+python main.py --lr_drop 200 --lr_backbone 1e-5 --output_dir "SpecifyYourOutputDir" --epochs 500 --enc_layers 6 --dec_layers 6 --num_queries 1 --batch_size 24 --resume "SpecifyPathToPretrainWeights" --dilation --train_img_folder "SpecifyYourTrainImgsFolder" --val_img_folder "SpecifyTestImagesFolder" --bbox_loss_coef 0 --giou_loss_coef 0
+```
