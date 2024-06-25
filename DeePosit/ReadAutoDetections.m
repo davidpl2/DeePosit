@@ -84,7 +84,9 @@ for k=1:2
             if s.bytes > 0 %not an empty file
                 autoResHab = readtable(fname,'delimiter',',');
                 name = autoResHab.Var1;
-                labels= autoResHab.label;
+                [~,indSortName] = sort(name);
+                name = name(indSortName);
+                labels= autoResHab.label(indSortName);
                 detInd = 1:length(labels);
                 if length(labels)~=nDetections
                     error('number of events in classifier csv is different from heuristic detections in detecton.mat')
