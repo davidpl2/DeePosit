@@ -3,7 +3,7 @@
 ![DeePosit](ExampleOfResults/DeePositScreenShot.png)
 
 <h2>Overview</h2>
-This code allows the automatic detection of urine and fecal depositions in the thermal video of rodents during behavioral experiments. The algorithm is described in the paper mentioned in the title and is available [here](https://www.biorxiv.org/content/10.1101/2024.06.24.600419v1).
+This code allows the automatic detection of urine and fecal depositions in the thermal video of rodents during behavioral experiments. The algorithm is described in the paper mentioned in the title and is available here: https://www.biorxiv.org/content/10.1101/2024.06.24.600419v1.
 It is based on a preliminary hot blob detector and a classifier, which is used to classify each preliminary detection as either urine\feces or background (i.e., not urine or feces). The classifier code is based on the code published by:
 https://github.com/facebookresearch/detr . Additional supplementary videos are available [here](https://drive.google.com/drive/folders/1aM5tyACrXu9ehU_l_mNC5irGlsp0L6i_?usp=drive_link).
 <h2>Project structure</h2>  
