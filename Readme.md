@@ -3,27 +3,27 @@
 ![DeePosit](ExampleOfResults/DeePositScreenShot.png)
 
 <h2>Overview</h2>
-This code allows automatic detection of urine and fecal depositions in thermal video of rodents during behavioural experiments. The algorithm is described in the paper mentioned in the title.
-It is based on a preliminary hot blob detector and a classifier which is used to classify each preliminary detection as either urine\feces or background (i.e. not urine or feces). The classifier code is based on the code published by:
-https://github.com/facebookresearch/detr 
+This code allows the automatic detection of urine and fecal depositions in the thermal video of rodents during behavioral experiments. The algorithm is described in the paper mentioned in the title and is available [here](https://www.biorxiv.org/content/10.1101/2024.06.24.600419v1).
+It is based on a preliminary hot blob detector and a classifier, which is used to classify each preliminary detection as either urine\feces or background (i.e., not urine or feces). The classifier code is based on the code published by:
+https://github.com/facebookresearch/detr . Additional supplementary videos are available [here](https://drive.google.com/drive/folders/1aM5tyACrXu9ehU_l_mNC5irGlsp0L6i_?usp=drive_link).
 <h2>Project structure</h2>  
 
-1. DeePosit subfolder includes the code for the preliminary detection algorithm as well as the classifier. The project includes both Matlab and Python code. The code was developed in windows but can probably run in linux as well.  
+1. DeePosit subfolder includes the code for the preliminary detection algorithm as well as the classifier. The project includes both Matlab and Python code. The code was developed in Windows but can probably run in Linux as well.  
 
 2. ExampleOfResults subfolder includes a video demonstrating the automatic detection of urine (marked in green) and feces (marked in red). Preliminary detections that were classified as background are marked in blue.
    
 3. FigStat includes additional statistical data for the figures in the paper.
    
-4. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code you will need a pc with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK).
+4. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code, you will need a PC with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK).
    
-5. VideoDatabase includes a recorded video which can be used to try the code. It should be downloaded from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extrated in the project folder.  VideoDatabase\IR_Raw_Data contains the IR video and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exist only for the trial period).
+5. VideoDatabase includes a recorded video which can be used to try the code. It should be downloaded from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extrated in the project folder.  VideoDatabase\IR_Raw_Data contains the IR video, and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exists only for the trial period).
 
 
 <h2>Getting Started</h2>
 
-1. Prerquists for running the automatic urine and feces detection: A PC with at least 32GB of RAM and a GPU with at least 4GB of memory,  Matlab R2020b or higher, Python 3.9 , Cuda Version 11.3 or higher.  For recording thermal videos with Thermapp MD IR camera you will need a PC with Ubuntu. See Thermapp_VideoRecordingCode\Readme.md for more details.
+1. Prerquists for running the automatic urine and feces detection: A PC with at least 32GB of RAM and a GPU with at least 4GB of memory,  Matlab R2020b or higher, Python 3.9 , Cuda Version 11.3 or higher.  To record thermal videos with Thermapp MD IR camera you will need a PC with Ubuntu. See Thermapp_VideoRecordingCode\Readme.md for more details.
 
-2. Create a folder for the project, open console (in windows, press on start, write cmd and press enter). In the console write:  
+2. Create a folder for the project, open console (in Windows, press on start, write cmd, and press enter). In the console, write:  
 
 ```
    cd YourProjectFolder
@@ -36,7 +36,7 @@ The repository will be downloaded into the folder: YourProjectFolder\DeePosit
 
 4. To see the IR video, open Matlab and change the current folder to YourProjectFolder\DeePosit\DeePosit. Run the Matlab script DeePositLabeler. A graphical user interface will be shown. Press on "Load Video" button and choose one of the bin files in the directory YourProjectFolder\VideoDatabase\IR_Raw_Data\SP\13.04.23\2F_1_SP_ICR Dup_WT_2023-04-13_13-56-32\.
    
-5. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotation will be overlayed. Manually labeled urine and feces will be saved in an Excel file named GT_Detections.xlsx inside the video directory (the labeling of urine and feces is not used by the automatic detection algorithm). Other annotations (arena's floor, black body, indexes of first and last frame of habituation and trial periods, sides of stimulus1 and stimulus2) will be saved in BBandCageContours.xml in the same directory. See DeePosit\DeePositLabelerManual.docx for more details.
+5. Note that the DeePositLabeler can be used to manually annotate the videos. Specifically, it may be used to manually select the frame range for the habituation period and the trial period, to annotate the polygon of the arena floor in habituation and trial periods, and to annotate the blackbody surface (in habituation and trial). These annotations are required before the automatic detection algorithm can run. As this example video is already annotated, these annotations will be overlayed. Manually labeled urine and feces will be saved in an Excel file named GT_Detections.xlsx inside the video directory (the labeling of urine and feces is not used by the automatic detection algorithm). Other annotations (arena's floor, black body, indexes of first and last frame of habituation and trial periods, sides of stimulus1 and stimulus2) will be saved in BBandCageContours.xml in the same directory. See DeePosit\DeePositLabelerManual.docx for more details.
    
 6. To run the automatic detector, create a virtual environment with python 3.9 by running in console:
 ```
