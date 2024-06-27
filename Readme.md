@@ -3,9 +3,9 @@
 ![DeePosit](ExampleOfResults/DeePositScreenShot.png)
 
 <h2>Overview</h2>
-This code allows the automatic detection of urine and fecal depositions in the thermal video of rodents during behavioral experiments. The algorithm is described in the paper mentioned in the title and is available here: https://www.biorxiv.org/content/10.1101/2024.06.24.600419v1.
+This code allows the automatic detection of urine and fecal depositions in the thermal video of rodents during behavioral experiments. The algorithm is described in the paper mentioned in the title and is available here: https://www.biorxiv.org/content/10.1101/2024.06.24.600419v1 .
 It is based on a preliminary hot blob detector and a classifier, which is used to classify each preliminary detection as either urine\feces or background (i.e., not urine or feces). The classifier code is based on the code published by:
-https://github.com/facebookresearch/detr . Additional supplementary videos are available [here](https://drive.google.com/drive/folders/1aM5tyACrXu9ehU_l_mNC5irGlsp0L6i_?usp=drive_link).
+https://github.com/facebookresearch/detr. 
 <h2>Project structure</h2>  
 
 1. DeePosit subfolder includes the code for the preliminary detection algorithm as well as the classifier. The project includes both Matlab and Python code. The code was developed in Windows but can probably run in Linux as well.  
@@ -17,7 +17,8 @@ https://github.com/facebookresearch/detr . Additional supplementary videos are a
 4. Thermapp_VideoRecordingCode includes the code for recording video with the Opgal's IR Thermapp MD infrared camera which was used in this project. To use this code, you will need a PC with Linux, a Thermapp MD camera, and the SDK of the camera (you will need to contact Opgal for the SDK).
    
 5. VideoDatabase includes a recorded video which can be used to try the code. It should be downloaded from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extrated in the project folder.  VideoDatabase\IR_Raw_Data contains the IR video, and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exists only for the trial period).
-
+  
+6. Additional supplementary videos are available [here](https://drive.google.com/drive/folders/1aM5tyACrXu9ehU_l_mNC5irGlsp0L6i_?usp=drive_link).
 
 <h2>Getting Started</h2>
 
