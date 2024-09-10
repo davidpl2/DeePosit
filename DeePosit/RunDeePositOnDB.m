@@ -33,7 +33,7 @@ GenerateTrainTestDB = false; % if true, generates training and testing database 
 %clean-up
 doCleanUp = true; %erase temporary files before starting and after finishing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+allowSkip=false;
 params = getParams();
 HeuristicVer = params.HeuristicVer;
 classifierVer=params.classifierVer;
