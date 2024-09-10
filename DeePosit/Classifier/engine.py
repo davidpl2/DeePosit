@@ -280,5 +280,10 @@ def evaluateFullFrame(model, criterion, postprocessors, data_loader, base_ds, de
         stats['PQ_st'] = panoptic_res["Stuff"]
 
     resTableDf = pandas.DataFrame(resTable,index = ["label", "score", "gtLabel","x","y"]).transpose()
-    resTableDf.to_csv(os.path.join(output_dir,'Test_{}_Epoch_{}.csv'.format(outFnamePostfix,epoch)))
+    outputFname = os.path.join(output_dir,'Test_{}_Epoch_{}.csv'.format(outFnamePostfix,epoch))
+    if len(outputFname)>255:
+        print("Warning: output path name is too long, classifier output might not be saved. output file={}".format(outputFname))
+    else:
+        print("Output file={}".format(outputFname))
+    resTableDf.to_csv(outputFname)
     return stats, coco_evaluator

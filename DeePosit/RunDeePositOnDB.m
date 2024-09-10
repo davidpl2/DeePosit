@@ -3,9 +3,7 @@
 %   The script can do several operations:
 %   1. Run the prelimnary detection + the classifier on the videos in the database
 %   to do that, set below:
-%       doDetection=true, GenerateDbForClassification=true, runNN=true
-%       *setting allowSkip=true will result skipping videos which were
-%       already analyzed. (useful when adding new videos to the DB).
+%       doDetection=true, GenerateDbForClassification=true, runNN=true       
 %
 %   2. Generate the train\test database for training the classifier.
 %       to do that, set below: GenerateTrainTestDB = true
@@ -24,7 +22,6 @@ clear all;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %preliminary detection:
 doDetection = true; % if true, runs the preliminary detection.
-allowSkip = true; %skip preliminary detection if the detection results exist for this video
 
 %running the classifier:
 GenerateDbForClassification = true;
@@ -104,59 +101,7 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
 
     curDoDetection = doDetection;
     detectionWasDone = false;
-    vidOutputDir = fullfile(outputDir,dirList{vidIndex});
-
-    
-    %skip this video if it was already processed:
-    if ~GenerateTrainTestDB %if we generate train and test DB than we wont skip videos.
-        dirListHab = dir(fullfile(vidOutputDir,['*Habituation',HeuristicVer]));
-        dirList0 = dir(fullfile(vidOutputDir,['*Trial',HeuristicVer]));
-        detectionWasDone = false;
-        if (length(dirList0)>0) && (length(dirListHab)>0)
-            classifierFnameHab = fullfile(vidOutputDir,dirListHab(end).name,['Test_',classifierVer,'_Epoch_-1.csv']);
-            classifierFnameTrial = fullfile(vidOutputDir,dirList0(end).name,['Test_',classifierVer,'_Epoch_-1.csv']);
-
-            detectionWasDone = exist(fullfile(vidOutputDir,dirListHab(end).name,'Detections.mat')) &&...
-                exist(fullfile(vidOutputDir,dirList0(  end).name,'Detections.mat'));
-
-            
-            if detectionWasDone
-                nDetectionsHab = GetNumDetections(fullfile(vidOutputDir,dirListHab(end).name,'Detections.mat'));
-                nDetectionsTrial = GetNumDetections(fullfile(vidOutputDir,dirList0(end).name,'Detections.mat'));
-
-                detFileHab = dir(fullfile(vidOutputDir,dirListHab(end).name,'Detections.mat'));
-                detFileTrial = dir(fullfile(vidOutputDir,dirList0(end).name,'Detections.mat'));
-
-                detectionDate = min(datetime(detFileHab.date),datetime(detFileTrial.date));
-
-                if (exist(classifierFnameHab)||(nDetectionsHab==0)) &&...
-                        (exist(classifierFnameTrial)||(nDetectionsTrial==0))
-
-                    taggingDate = dir(fullfile(srcDir00,'BBandCageContours.xml'));
-                    disp(['taggind date=',taggingDate.date])
-                    taggingDate = datetime(taggingDate.date);
-
-                    %detectionDate = min(datetime(dirListHab(end).date),datetime(dirList0(end).date));
-                    disp(['detection date=',string(detectionDate)])
-                    if (detectionDate>taggingDate)
-                        disp(['detection done after last tagging'])
-                        curDoDetection = false;
-                        if ~GenerateTrainTestDB
-                            if allowSkip
-                                disp(['Skipping Vid Id = ',num2str(vidIndex)])
-                                continue;
-                            end
-                        end
-                    else
-                        detectionWasDone = false;
-                        disp(['detection is not up to date']);
-                        fprintf(logFile,['detection is not up to date:', srcDir00,'\n']);
-
-                    end
-                end
-            end
-        end
-    end
+    vidOutputDir = fullfile(outputDir,dirList{vidIndex});      
 
     
     if ~(doDetection || GenerateDbForClassification || GenerateTrainTestDB)
@@ -186,6 +131,22 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
         gtType = {};
     end
 
+    habPeriodDefined = handles.habFrames(1)>0 && handles.habFrames(2)>0;
+    trialPeriodDefined = handles.trialFrames(1)>0 && handles.trialFrames(2)>0;
+    usedPeriods = [1,2];
+
+    if ~trialPeriodDefined 
+        disp('Warning: Trial start and end frame were not selected');
+        usedPeriods = [1];
+    end
+
+    if ~habPeriodDefined 
+        disp('Warning: Habituation start and end frame were not selected, setting habituation to be the entire video and ignroing trial period.');
+        handles.habFrames(1) = 1;
+        handles.habFrames(2) = length(imgsList);
+        usedPeriods = [1];
+    end   
+
     %Loading video to memory. the video will be loaded into the variable: global IrImgVec
     if curDoDetection || GenerateDbForClassification || GenerateTrainTestDB
         fprintf(logFile,'Loading video\n');
@@ -202,7 +163,7 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
         RGBResPath = RGBResPathTrain;
     end
 
-    for t=1:2
+    for t=usedPeriods
         if t==1
             %Habituation Analysis:
             cageMask = handles.habCageMask;
@@ -320,7 +281,11 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
     [predictedLabel,hotFrameI,xCord,yCord,ver, areaPixels, maxPixelIdxListAll,...
      mouseFrameNum, mouseCenterXY, mouseMasksAll,unifiedPixelIdxListAll] = ReadAutoDetections(vidOutputDir,false,false,params.classifierVer,params.HeuristicVer);
 
-    T = table(hotFrameI,predictedLabel,xCord,yCord,areaPixels);
+    fileName = cell(length(xCord),1);
+    for kk=1:length(xCord)
+        fileName{kk} = imgsList(hotFrameI(kk)).name;
+    end
+    T = table(hotFrameI,predictedLabel,xCord,yCord,areaPixels,fileName);        
     writetable(T,fullfile(vidOutputDir,'DeePositRes.csv'));
 
     %catch me

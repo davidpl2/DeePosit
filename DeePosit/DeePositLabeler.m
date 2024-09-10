@@ -1238,7 +1238,15 @@ if ~isempty(x)
     y = handles.clickY(manualType);
     frameIndex = handles.clickFrame(manualType);
     type = handles.clickType(manualType);
-    T =table(x,y,frameIndex,type);
+    fileName = cell(length(x),1);
+    for kk=1:length(x)
+        fileName{kk} = handles.imgsList(frameIndex(kk)).name;
+    end
+    x=x(:);
+    y=y(:);
+    frameIndex = frameIndex(:);
+    type = type(:);
+    T =table(x,y,frameIndex,type, fileName);
     if exist(outPath,'file')%current tagging is empty, so we delete old tagging file
         delete(outPath)
     end
