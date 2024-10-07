@@ -36,6 +36,9 @@ for k=1:2
     autoFrameID = [];
     autoCordX = [];
     autoCordY = [];
+    autoArea=[];
+    maxPixelIdxList=[];
+    unifiedPixelIdxList=[];
             
     if k==1
         autoDetectionHabDir = dir(fullfile(imgDir,['*_Habituation',HeuristicVer]));
@@ -70,13 +73,15 @@ for k=1:2
             end
             oldRegionsVec = oldRegionsVec(detSaved);
             nDetections= length(oldRegionsVec);
-            detName = cell(1,length(nDetections));
-            for dd=1:length(oldRegionsVec)
-                detName{dd} = ['BG_Frame',num2str(oldRegionsVec{dd}.hotFrame,'%.5d'),'_X',num2str(oldRegionsVec{dd}.maxCordJ),'_Y',num2str(oldRegionsVec{dd}.maxCordI)];
+            if nDetections>0
+                detName = cell(1,length(nDetections));
+                for dd=1:length(oldRegionsVec)
+                    detName{dd} = ['BG_Frame',num2str(oldRegionsVec{dd}.hotFrame,'%.5d'),'_X',num2str(oldRegionsVec{dd}.maxCordJ),'_Y',num2str(oldRegionsVec{dd}.maxCordI)];
+                end
+    
+                [~,indSort] = sort(detName);
+                oldRegionsVec = oldRegionsVec(indSort);
             end
-
-            [~,indSort] = sort(detName);
-            oldRegionsVec = oldRegionsVec(indSort);
         end
         fname = fullfile(imgDir,autoDetectionHabDir(end).name,['Test_',ver,'_Epoch_-1.csv']);
         if exist(fname,'file')

@@ -16,6 +16,7 @@ experiment-*
 not_tracked_dir/
 .vscode
 *.pth
+*.asv
 VideoDatabase/**
 DeePositDetectionResults/**
 DeePositVenv/**
