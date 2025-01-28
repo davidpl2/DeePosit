@@ -241,9 +241,9 @@ for k=startI:endI
             %smooth correlation
 
             isUrine = false;
-            if (curRegion.Area> maxSizeFeces)
-                isUrine = true;
-            end
+            % if (curRegion.Area> maxSizeFeces)
+            %     isUrine = true;
+            % end
 
             %overlaps old regions?
             gotIntersection = false;
