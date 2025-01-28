@@ -1,8 +1,10 @@
 function outPath = DetectUrineAndFecesLowThreshold22(startI,endI,outsideMask,imgsList,imgDir,outDirPostfix,habFrames,trialFrames,vidOutputDir)
 
 global IrImgVec
+params = getParams();
+
 %global imgVecAvailable
-fps = 8.663;
+fps = params.fps;
 
 %minTemp = 27;
 %maxTemp = 38;
@@ -12,7 +14,7 @@ fps = 8.663;
 %maxSizeUrine = 400;%30*30 pixels
 %minTime = 5; %urine\feces should be visible at least this time
 %verStr = '1.13LowThres';
-verStr = '1.22LowThres';%1.19 and 1.20 is the same alg.
+verStr = '1.24HighThres';%1.19 and 1.20 is the same alg.
 %LOG:
 % ver 1.1: substract oldImNoMouse instead of bgImage
 % ver 1.2: allow detections that touches the mouse or the cage borders
@@ -63,36 +65,30 @@ verStr = '1.22LowThres';%1.19 and 1.20 is the same alg.
 %ver 1.22: unify pixel list to better cope with smearing of urine\small
 %shifts.
 
-minTemp = 10;
-maxTemp = 39;
+minTemp = params.minTemp;
+maxTemp = params.maxTemp;
 
 %minDt should be higher then the maskMouse threshold so if a mouse's tail pixel was not detected as part of the mouse mask, it will also not be detected as urine\feces
-minDeltaTUrine = 1.1;
-minDeltaTFeces = 1.1;
-minCooldown = 1.1;
-%minCooldownFromBase = 0.5;
-minTempOfMouse = 28;
+minDeltaTUrine = params.minDeltaT;
+minDeltaTFeces = params.minDeltaT;
+minCooldown = params.minCooldown;
+coolDownFraction = params.coolDownFraction;
+cooldownPeriodSec = params.cooldownPeriodSec;
 
-minSizeFeces = 2;
-maxSizeFeces = 900; %check maybe larger value
-minSizeUrine = 2;
-maxSizeUrine = 900; %check maybe larger value
+minDetectionFrames = params.minDetectionFrames; % detection should found in atelast 2 frames.
+minHiddenTime = params.minHiddenTime;%new detections in the same place should be atleast 30 sec frames apart
 
-minTime = 2; % detection should found in atelast 2 frames.
-minHiddenTime = round(fps*30);%new detections in the same place should be atleast 30 sec frames apart
+minDeltaMouseMask = params.minDeltaMouseMask;
 
-minDeltaMouseMask = 1;
-%minDeltaMouseMaskForTemp = 2;
-%mouseSegmentMinSize = 600;
 
 min_intersect = 0.01; %min overlap (intersection over union) to connect regions across frames
 
-minSize = min(minSizeFeces,minSizeUrine);
-maxSize = max(maxSizeFeces,maxSizeUrine);
+minSize = params.minDetectionSize;
+maxSize = params.maxDetectionSize;
 
 
-rows = 288;
-cols = 384;
+rows = params.imRows;
+cols = params.imCols;
 dtype = 'uint16';
 oldRegionsVec = {};
 %maskBorder = handles.cageMask & ~imerode(handles.cageMask,ones(3));
@@ -198,12 +194,12 @@ for k=startI:endI
         continue;
     end
 
-    minOfFuture = min(IrImgVec(:,:,k:min(endI,k+round(fps*40))),[], 3);
+    minOfFuture = min(IrImgVec(:,:,k:min(endI,k+round(fps*cooldownPeriodSec))),[], 3);
     %the cooldown should be closer in time to the heat time
 
     %darker then the base level (before the urination)
     curCoolDown = (imC-minOfFuture);%ver 1.5
-    mask0 = mask0.*(curCoolDown>minCooldown).*(curCoolDown>=0.5*difImg);%.*(coolDownFromBase > minCooldownFromBase);
+    mask0 = mask0.*(curCoolDown>minCooldown).*(curCoolDown>=coolDownFraction*difImg);%.*(coolDownFromBase > minCooldownFromBase);
 
 
     if sum(mask0(:)) == 0
@@ -340,7 +336,7 @@ copyfile(fullfile(FILEPATH,'*.m'),outPath);
 saveRegionVec = false(1,length(oldRegionsVec));
 for oldI=1:length(oldRegionsVec)
     curRegion = oldRegionsVec{oldI};
-    if (curRegion.lastFrameInd - curRegion.firstFrameInd+1) > minTime
+    if (curRegion.lastFrameInd - curRegion.firstFrameInd+1) > minDetectionFrames
         oldRegionsVec{oldI}.regionSaved = true;
         saveRegionVec(oldI)=true;
     end
@@ -394,11 +390,9 @@ fprintf(fd,['minUrineAndFecesTemprature(C),' num2str(minTemp) '\n']);
 fprintf(fd,['maxUrineAndFecesTemprature(C),' num2str(maxTemp) '\n']);
 fprintf(fd,['UrineMinDeltaT(C),' num2str(minDeltaTUrine) '\n']);
 fprintf(fd,['FecesMinDeltaT(C),' num2str(minDeltaTFeces) '\n']);
-fprintf(fd,['minFecesArea(pixels),' num2str(minSizeFeces) '\n']);
-fprintf(fd,['maxFecesArea(pixels),' num2str(maxSizeFeces) '\n']);
-fprintf(fd,['minUrineArea(pixels),' num2str(minSizeUrine) '\n']);
-fprintf(fd,['maxUrineArea(pixels),' num2str(maxSizeUrine) '\n']);
-fprintf(fd,['ExistDuringAtleastXFrames,' num2str(minTime) '\n']);
+fprintf(fd,['minDetectionArea(pixels),' num2str(minSize) '\n']);
+fprintf(fd,['maxDetectionArea(pixels),' num2str(maxSize) '\n']);
+fprintf(fd,['ExistDuringAtleastXFrames,' num2str(minDetectionFrames) '\n']);
 fprintf(fd,['MayBeHiddenDuringXFrames,' num2str(minHiddenTime) '\n']);
 fclose(fd);
 if 0

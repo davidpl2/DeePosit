@@ -184,7 +184,7 @@ for vidIndexI = 1:length(usedVis)% vidIndexI=150,151 had an issue
         disp('Running Detection');
         if curDoDetection && (~detectionWasDone)            
             fprintf(logFile,'DetectUrineAndFecesLowThreshold\n');            
-            curOutPath = DetectUrineAndFecesLowThreshold22(startI,endI,~cageMask,imgsList,srcDir,outDirPostfix,habFrames,trialFrames,vidOutputDir);
+            curOutPath = DetectUrineAndFecesLowThreshold(startI,endI,~cageMask,imgsList,srcDir,outDirPostfix,habFrames,trialFrames,vidOutputDir);
         else
             if t==1
                 dirList0 = dir(fullfile(vidOutputDir,['*Habituation',HeuristicVer]));

@@ -18,7 +18,7 @@ https://github.com/facebookresearch/detr.
    
 5. VideoDatabase includes a recorded video which can be used to try the code. It should be downloaded from this [link](https://drive.google.com/file/d/1ICq_LorzK8Vlk3Shse2zbUK72bZrGR_6/view?usp=drive_link) and extrated in the project folder.  VideoDatabase\IR_Raw_Data contains the IR video, and VideoDatabase\Raw data contains the matching visible wavelength video (visible wavelength video exists only for the trial period).
   
-6. Additional supplementary videos are available [here](https://drive.google.com/drive/folders/1aM5tyACrXu9ehU_l_mNC5irGlsp0L6i_?usp=drive_link).
+6. Additional supplementary videos are available [here](https://drive.google.com/drive/folders/1eHZshWuBueN8I7FBd7GJIZ1_s2HXdVNg?usp=drive_link).
 
 <h2>Getting Started</h2>
 
@@ -59,10 +59,11 @@ pip install -r YourProjectFolder\DeePosit\DeePosit\Classifier\requirments.txt
 params.pythonExe = '"YourProjectFolder\YourVirtualEnvironmentName\Scripts\python.exe"';
 ```
   
-10. Download the pre-trained weights file from this [link](https://drive.google.com/file/d/16qVqZz5Yz_im1quljCdQ8cLIBGlrLxOY/view?usp=drive_link) and put it in the folder YourProjectFolder\DeePosit\DeePosit\Classifier\TrainedWeights.
+10. Download the pre-trained weights file from this [link](https://drive.google.com/file/d/1qKnar6fhPlP6OwEb5GGnc-b6vIFMZf55/view?usp=sharing) and put it in the folder YourProjectFolder\DeePosit\DeePosit\Classifier\TrainedWeights.
 
 11. In Matlab, change current directory to YourProjectFolder\DeePosit\DeePosit and run the Matlab script RunDeePositOnDB to run the preliminary detection and the classifier on all of the videos in the database (a single video is supplied in this github repository). The results will be saved in YourProjectFolder\DeePosit\DeePositDetectionResults\relative_path_of_the_input_video\DeePositRes.csv. Note that the videos in the database should be listed in the csv file: YourProjectFolder\DeePosit\VideoDatabase\vidsID.csv . Also note that videos that were already processed will be skipped (unless you delete the relevant subfolder in DeePositDetectionResults).
 
+12. Note that the parameters of the heuristic detections can be changed in getParams.m under the "heuristic detection main parameters" section.
 
 <h2>Training the classifier</h2>
 
