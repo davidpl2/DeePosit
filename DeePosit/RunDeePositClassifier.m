@@ -21,8 +21,10 @@ inputDir = makeAbsPath(inputDir);
 
 if ~isempty(inputDir)   
     cd(params.classifierWorkingDir)
-    inputDir = strrep(['"',inputDir,'"'],'\','\\');
-    outDir = strrep(['"',outDir,'"'],'\','\\');
+    %inputDir = strrep(['"',inputDir,'"'],'\','\\');
+    %outDir = strrep(['"',outDir,'"'],'\','\\');
+    inputDir = ['"',inputDir,'"'];
+    outDir = ['"',outDir,'"'];    
     weightFile = ['"',weightFile,'"'];
     system([pythonExe,' ',mainScript,' --output_dir ',outDir,' --enc_layers 6 --dec_layers 6 --num_queries 1 --resume ',weightFile,' --dilation --eval --val_img_folder ',inputDir, ' --evalOutFilePostfix ', evalOutFilePostfix]);    
     cd(curDir)
