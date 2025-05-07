@@ -1718,7 +1718,7 @@ function openVisVid_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 if ~isempty(handles.vidData)
     visVid = handles.vidData.visVid{1};
-    if exist(visVid,'file') %file
+    if exist(visVid,'file')==2 %file
         [path,name,ext] = fileparts(visVid);
         %winopen(path);
         winopen(visVid);
