@@ -3,7 +3,7 @@
 ![DeePosit](ExampleOfResults/DeePositScreenShot.png)
 
 <h2>Overview</h2>
-This code allows the automatic detection of urine and fecal depositions in the thermal video of rodents during behavioral experiments. The algorithm is described in the paper mentioned in the title and is available here: https://www.biorxiv.org/content/10.1101/2024.06.24.600419v1 .
+This code allows the automatic detection of urine and fecal depositions in the thermal video of rodents during behavioral experiments. The algorithm is described in the paper mentioned in the title and is available here: https://elifesciences.org/reviewed-preprints/100739 .
 It is based on a preliminary hot blob detector and a classifier, which is used to classify each preliminary detection as either urine\feces or background (i.e., not urine or feces). The classifier code is based on the code published by:
 https://github.com/facebookresearch/detr. 
 <h2>Project structure</h2>  
@@ -22,7 +22,7 @@ https://github.com/facebookresearch/detr.
 
 <h2>Getting Started</h2>
 
-1. Prerquists for running the automatic urine and feces detection: A PC with at least 32GB of RAM and a GPU with at least 4GB of memory,  Matlab R2020b or higher, Python 3.9 , Cuda Version 11.3 or higher.  To record thermal videos with Thermapp MD IR camera you will need a PC with Ubuntu. See Thermapp_VideoRecordingCode\Readme.md for more details.
+1. Prerequisites for running the automatic urine and feces detection: A PC with at least 32GB of RAM and a GPU with at least 4GB of memory,  Matlab R2020b or higher, Python 3.9 , Cuda Version 11.3 or higher.  To record thermal videos with Thermapp MD IR camera you will need a PC with Ubuntu. See Thermapp_VideoRecordingCode\Readme.md for more details.
 
 2. Create a folder for the project, open console (in Windows, press on start, write cmd, and press enter). In the console, write:  
 
@@ -74,3 +74,9 @@ params.pythonExe = '"YourProjectFolder\YourVirtualEnvironmentName\Scripts\python
 ```
 python main.py --lr_drop 200 --lr_backbone 1e-5 --output_dir "SpecifyYourOutputDir" --epochs 500 --enc_layers 6 --dec_layers 6 --num_queries 1 --batch_size 24 --resume "SpecifyPathToPretrainWeights" --dilation --train_img_folder "SpecifyYourTrainImgsFolder" --val_img_folder "SpecifyTestImagesFolder" --bbox_loss_coef 0 --giou_loss_coef 0
 ```
+
+<h2>Acknoledgment</h2>
+The classifier code is based on the Detection Transformer (DETR) code by Carion, Nicolas, et al which is published here: https://github.com/facebookresearch/detr
+
+<h2>License</h2>
+The code is published with Apache 2.0 license.
