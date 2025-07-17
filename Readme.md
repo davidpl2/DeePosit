@@ -80,3 +80,7 @@ The classifier code is based on the Detection Transformer (DETR) code by Carion,
 
 <h2>License</h2>
 The code is published with Apache 2.0 license.
+
+<h2>Citation</h2>
+Peles David, Netser Shai, Ray Natalie, Suliman Taghreed, Wagner Shlomo (2024) DeePosit: an AI-based tool for detecting mouse urine and fecal depositions from thermal video clips of behavioral experiments eLife 13:RP100739
+https://doi.org/10.7554/eLife.100739.2
